@@ -47,12 +47,14 @@ jobs:
     - name: copy .jar to staging
       run: cp target/*.jar staging
     - name: copy .exe to staging
-      run: cp target/*.exe staging
-    - name: list directory
-      run: ls -l
+      run: cp target/*.exe staging      
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: sila-orchestrator.exe
+        path: staging
+    - name: list directory
+      run: ls *.*
+    
     - name: Run sila-orchestrator in CLI mode
       run: java -jar ./target/sila-orchestrator.jar -hvl --info
