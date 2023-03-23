@@ -40,5 +40,17 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean install -V
+    - name: Package with Maven
+      run: mvn clean package 
+    - name: mkdir staging
+      run: mkdir staging
+    - name: copy .jar to staging
+      run: cp target/*.jar staging
+    - name: copy .exe to staging
+      run: cp target/*.exe staging
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: sila-orchestrator.exe
     - name: Run sila-orchestrator in CLI mode
       run: java -jar ./target/sila-orchestrator.jar -hvl --info
